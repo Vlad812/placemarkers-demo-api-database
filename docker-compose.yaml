@@ -1,0 +1,47 @@
+services:
+
+  api-placemarkers-database:
+    image: api-placemarkers-database-image
+    container_name: api-placemarkers-database
+    build:
+      context: .
+      dockerfile: ./Docker/RR/Dockerfile
+    volumes:
+      - ./app:/var/www/html
+    environment:
+      APP_ENV: dev
+      APP_DEBUG: 1
+      APP_SECRET: 75914121030ad559bbae482519258ce1
+      APP_RUNTIME: Baldinof\RoadRunnerBundle\Runtime\Runtime
+      VAR_DUMPER_FORMAT: 'server'
+      VAR_DUMPER_SERVER: 'buggregator:9912'
+      DATABASE_URL: "postgresql://my_postgres:postgres@cs-pg-placemarkers-primary:5432/placemarkers_db?serverVersion=17&charset=utf8"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=place_markers_net"
+      - "traefik.http.routers.api-placemarkers-database.rule=Host(`api.placemarkers.local`)"
+      - "traefik.http.routers.api-placemarkers-database.entrypoints=web"
+      - "traefik.http.routers.api-placemarkers-database.priority=1"
+      - "traefik.http.services.api-placemarkers-database.loadbalancer.server.port=8080"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8080/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    networks:
+      - place_markers_net
+
+  api-placemarkers-database-php-cli:
+    image: api-placemarkers-database-php-cli-image
+    build:
+      dockerfile: ./Docker/cli/Dockerfile
+    container_name: api-placemarkers-database-php-cli
+    volumes:
+      - ./app:/var/www/html
+    networks:
+      - place_markers_net
+
+networks:
+  place_markers_net:
+    external: true
