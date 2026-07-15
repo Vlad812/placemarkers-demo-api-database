@@ -22,8 +22,11 @@ services:
     App\Domain\Repository\PlacemarkerRepositoryInterface:
         class: App\Infrastructure\Persistence\Doctrine\Repository\DoctrinePlacemarkerRepository
 
-    App\Domain\Repository\PlacemarkerTagRepositoryInterface:
-        class: App\Infrastructure\Persistence\Doctrine\Repository\DoctrinePlacemarkerTagRepository
+    App\Domain\Repository\TagRepositoryInterface:
+        class: App\Infrastructure\Persistence\Doctrine\Repository\DoctrineTagRepository
+
+    App\Domain\Shared\UuidGeneratorInterface:
+        class: App\Infrastructure\Service\SymfonyUuidGenerator
 
     App\Application\Shared\TransactionalInterface:
         class: App\Infrastructure\Persistence\Doctrine\Transactional\DoctrineTransactional
