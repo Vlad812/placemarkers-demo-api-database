@@ -40,11 +40,13 @@
 
 #### Пример запроса
 
-```json
+```http
 POST /api/placemarkers HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
 
+```json
 {
   "name": "Любимая кофейня",
   "lat": 55.755826,
@@ -159,11 +161,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 #### Пример запроса
 
-```json
+```http
 PUT /api/placemarkers/123e4567-e89b-12d3-a456-426614174000 HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
 
+```json
 {
   "name": "Обновлённая кофейня",
   "description": "Теперь с десертами",
@@ -345,11 +349,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 #### Пример запроса
 
-```json
+```http
 POST /api/tags HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
 
+```json
 {
   "name": "coffee",
   "description": "Места с хорошим кофе"
