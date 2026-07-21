@@ -1,3 +1,10 @@
+x-app-environment: &app-environment
+  APP_ENV: dev
+  APP_DEBUG: 1
+  APP_SECRET: 75914121030ad559bbae482519258ce1
+  APP_RUNTIME: Baldinof\RoadRunnerBundle\Runtime\Runtime
+  DATABASE_URL: "postgresql://my_postgres:postgres@cs-pg-placemarkers-primary:5432/placemarkers_db?serverVersion=17&charset=utf8"
+
 services:
 
   api-placemarkers-database:
@@ -9,13 +16,9 @@ services:
     volumes:
       - ./app:/var/www/html
     environment:
-      APP_ENV: dev
-      APP_DEBUG: 1
-      APP_SECRET: 75914121030ad559bbae482519258ce1
-      APP_RUNTIME: Baldinof\RoadRunnerBundle\Runtime\Runtime
+      <<: *app-environment
       VAR_DUMPER_FORMAT: 'server'
       VAR_DUMPER_SERVER: 'buggregator:9912'
-      DATABASE_URL: "postgresql://my_postgres:postgres@cs-pg-placemarkers-primary:5432/placemarkers_db?serverVersion=17&charset=utf8"
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=place_markers_net"
@@ -39,6 +42,8 @@ services:
     container_name: api-placemarkers-database-php-cli
     volumes:
       - ./app:/var/www/html
+    environment:
+      <<: *app-environment
     networks:
       - place_markers_net
 
